@@ -1,0 +1,684 @@
+/*
+*********************************************
+                Dash_Student
+*********************************************
+*/
+
+
+.navbar {
+    background: #eceef1;
+}
+
+.navbar .theme-brand li.theme-text a,
+.navbar .navbar-item .nav-item.dropdown.message-dropdown .nav-link svg,
+.navbar .navbar-item .nav-item.dropdown.notification-dropdown .nav-link svg {
+    color: #4c4c54 !important;
+}
+
+.layout-top-spacing {
+    margin-top: 0;
+}
+
+.widget-unset {
+    box-shadow: none;
+}
+
+.pad-0 {
+    padding: 0!important;
+}
+
+.navbar .navbar-item
+.nav-item.dropdown.notification-dropdown
+.nav-link span.badge {
+    background: #ff0000;
+    border: 1px solid #ff0000;
+}
+
+/*dashboard*/
+.widget.widget-card-one.dash-hero {
+    background-color: #0e1726;
+    color: #fff;
+    padding: 0;
+}
+
+.widget-table-one .transactions-list .t-item .t-rate svg {
+    width: 20px;
+    height: 20px;
+     vertical-align: middle; 
+}
+
+.sales .widget h5.todays-classses {
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.widget-activity-three .mt-container {
+     height: 150px; 
+
+}
+
+.hero-profile, .h-profile, .hp-left, .hp-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hp-right .hp-stat {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hp-left, .hp-right {
+    padding: 20px;
+}
+
+.hero-profile {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.hero-profile .hp-left .hp-img-circle {
+    border: 6px solid #fff;
+    padding: 8px;
+    border-radius: 100%;
+    border-left-color: #ccc;
+}
+
+.hero-profile .hp-left .hp-img-circle img {
+    max-height: 100px;
+    max-width: 100px;
+    border-radius: 100%;
+}
+
+.hp-bio {
+    margin-left: 20px;
+}
+
+.hero-profile .hp-left .hp-bio .hp-name {
+    color: #fff;
+}
+
+.hero-profile .hp-right .hp-stat svg {
+    height: 40px;
+    width: 40px;
+}
+
+.dash-hero .hero-profile p {
+    color: #bfc9d4;
+}
+
+.hero-profile .hp-right .hp-stat.courses-count {
+    color: #1b55e2;
+}
+
+.hero-profile .hp-right .hp-stat.attendance {
+    color: #009688;
+}
+
+.hero-profile .hp-right .hp-stat.grade {
+    color: #e7515a;
+}
+
+.hero-profile .hp-right .hp-stat .indicator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.hero-profile .hp-right .hp-stat h5 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-left: 10px;
+
+}
+
+.hero-profile .hp-right .hp-stat p {
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-weight: 200;
+}
+
+/*course*/
+
+.widget.widget-activity-three.widget-unset {
+    padding-left: 10px;
+}
+
+.material-action svg{
+    height: 20px;
+    height: 20px;
+}
+
+.material-action .badge {
+    margin-right: 10px;
+}
+
+.card {
+    margin-top: 5px;
+}
+
+
+
+/*chatroom*/
+
+.chat-system .chat-box .chat-input {
+    position: relative;
+} 
+
+.chat-system .chat-box .chat-input span {
+    position: absolute;
+    right: 50px;
+    top: 0px;
+    fill: rgba(0, 23, 55, 0.08);
+    cursor: pointer;
+}
+
+.chat-system .chat-box .chat-input input {
+    padding: 12px 50px 12px 43px;
+}
+
+
+.chat-system .chat-box .bubble {
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    clear: both;
+    margin-bottom: 8px;
+    padding: 9px 18px;
+    vertical-align: top;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    word-break: break-word;
+    max-width: 370px;
+    min-width: 100px;
+}
+
+.chat-system .chat-box .bubble .sender {
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
+}
+
+.chat-system .chat-box .bubble div.sender span {
+    padding: 0;
+    margin: 0;
+}
+
+.chat-system .chat-box .bubble .msg {
+    margin: 5px 0 15px 0;
+}
+
+.chat-system .chat-box .bubble .timestamp {
+    font-size: .7rem;
+    padding: 4px;
+    position: absolute;
+    right: 18px;
+    bottom: 0;
+}
+
+
+
+/*grade*/
+
+.table td, .table th {
+    padding: .5rem; 
+}
+
+.nav-tabs .nav-link.active {
+    color: #1b55e2;
+}
+
+.border-outline {
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+.transcript-heading,
+.upper-heading,
+.lower-heading {
+    display: flex;
+}
+
+.transcript-heading {
+    flex-direction: column;
+}
+
+.transcript-heading img {
+    max-height: 80px;
+    max-width: 100px;
+}
+
+.transcript-heading,
+.upper-heading .logo {
+    padding-left: 5px;
+}
+
+.transcript-heading,
+.upper-heading .profile {
+    padding-right: 5px;
+}
+
+.transcript-heading h1 {
+    font-size: 1.2rem;
+}
+
+.upper-heading  {
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.lower-heading {
+    margin-bottom: 5px;
+}
+
+.title-text {
+    text-align: center;
+}
+
+.summary-text {
+    font-weight: 100!important;
+    font-size: .9rem!important;
+    margin-bottom: .5rem!important;
+}
+
+.caveat {
+    font-style: italic;
+    margin-bottom: 0!important;
+}
+
+/*courses*/
+
+.widget-content .w-content .course-code {
+    margin-bottom: 2px;
+    font-size: 1.5rem;
+    color: #1b55e2;
+}
+
+.course-title {
+    color: #888ea8;
+    font-weight: 600;
+}
+
+.dept-name {
+    font-weight: 100!important;
+}
+
+.widget-content .heading {
+    justify-content: space-between;
+    padding-right: 15px;
+}
+.widget-content .w-content .course {
+    /*margin-bottom: 20px;*/
+}
+
+
+.widget-content .w-content {
+    border-top: 1px dashed #e0e6ed;
+    border-bottom: 1px dashed #e0e6ed;
+    margin: 20px 0;
+    padding-bottom: 0;
+}
+
+.course-info {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.course-info .info-field {
+    font-size: .8rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.info-field.rf {
+    color: #e7515a;;
+}
+.info-field.gf {
+    color: #009688;;
+}
+
+.course-action {
+    display: flex;
+    justify-content: space-around;
+}
+
+.course-mat-icons {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.course-mat-icons div {
+    background: #1b55e2;
+    border-radius: 50%;
+    padding: 5px;
+    margin-right: 11px;
+    display: flex;
+    height: 33px;
+    justify-content: center;
+    width: 32px;
+}
+
+.course-mat-icons div.t-primary {
+    background-color: #1b55e2;
+    box-shadow: 0 10px 20px -10px #1b55e2;
+}
+
+.course-mat-icons div.t-warning {
+    background-color: #e2a03f;
+    box-shadow: 0 10px 20px -10px #e2a03f;
+}
+
+.course-mat-icons div.t-danger {
+        background-color: #e7515a;
+    box-shadow: 0 10px 20px -10px #e7515a;
+}
+
+.course-mat-icons div svg {
+    color: #fff;
+    height:16px;
+    width: 16px;
+    stroke-width: 1.6px;
+    align-self: center;
+}
+
+
+.widget-card-one .widget-content p.course-title {
+    margin-bottom: 0px;
+}
+
+
+/*  exams   */
+
+.widget-card-two .media .media-body .exam-title {
+    /*text-align: center;*/
+    font-weight: 800;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.widget-card-two .media .media-body .exam-date, 
+.widget-card-two .media .media-body .exam-time {
+    font-size: .8rem;
+    font-weight: 100;
+    padding: 0;
+}
+
+.exam-date svg, .exam-time svg {
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+}
+
+.widget-card-two .card-bottom-section .exam-course {
+    font-size: 1.5rem;
+}
+
+.exam-action{
+    font-size: 1.5rem;
+}
+
+/*  examstart */
+
+.exam-main-container {
+    padding-left: 0;
+    margin-top: 15PX;
+}
+
+#exam-content {
+    position: relative;
+    width: 50%;
+    flex-grow: 8;
+    margin-bottom: 0;
+    transition: .600s;
+}
+
+.exam-content {
+    margin: 0;
+}
+
+.question-nav-btn {
+
+}
+
+.justify-content-cntr {
+    justify-content: center;
+}
+
+.exam-display-pic img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.question-content {
+    /*height: 200px;*/
+}
+
+#cd-simple {
+    display: flex;
+    justify-content: center;
+}
+
+.clock-count-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.clock-count-container span {
+    font-size: 2rem;
+}
+
+.widget-content .exam-info p {
+    font-weight: 100;
+}
+
+.widget-content .exam-info p span {
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.widget-card-one .widget-content p.question-label {
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 0 10px;
+}
+
+.widget-card-one .widget-content p.question-val {
+    font-weight: 200;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    padding: 0 20px;
+}
+
+.widget-card-one .widget-content .options p.option-label {
+    font-size: 1.1rem;
+}
+
+#option-key {
+/*    margin: 0;
+    padding: 0;
+    display: inline-block;*/
+}
+
+.form-check-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 1.25rem;
+}
+
+.form-check-option .option-key {
+    vertical-align: middle;
+}
+
+.m-auto{
+    margin: auto;
+}
+
+.hide-btn {
+    visibility: hidden;
+}
+
+/**/
+
+
+/*
+*********************************************
+                Dash_Admin
+*********************************************
+*/
+
+
+/* dashboard */
+
+.hp-bio p {
+    margin-bottom: 0;
+}
+
+.hp-bio p.hp-dept-name {
+    margin-bottom: 5px;
+}
+
+.widget-activity-three .admin.mt-container {
+     height: 180px; 
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-space-btw {
+    justify-content: space-between;
+}
+
+
+/*  events  */
+
+.widget-card-one .widget-content .media.event-media {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e0e6ed;
+}
+
+.widget-card-one .widget-content .media-body h6.event-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0;
+    margin-bottom: 7px;
+}
+
+.widget-card-one .widget-content .media-body h6.event-title.dash {
+    font-size: 1rem;
+}
+
+.widget-card-one .widget-content .media-body p.event-date,
+.widget-card-one .widget-content .media-body p.event-time {
+    font-size: .8rem;
+    font-weight: 100;
+    padding: 0;
+}
+
+.event-date svg,
+.event-time svg {
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+}
+
+.widget-card-one .widget-content p.event_desc {
+    margin-bottom: 15px;
+}
+
+.event-action-btn .card-like {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 15px;
+    border-top: 1px dashed #e0e6ed;
+}
+
+.widget-activity-four.recent-events .mt-container {
+    height: 80px;
+}
+
+
+/*  Assessment  */
+
+div.adm-exam-desc {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.widget-card-one .widget-content div.adm-exam-desc p {
+    margin-bottom: 0px;
+}
+
+.adm-exam-desc .admin-exam-course-title {
+    margin-bottom: 0;
+}
+
+/* Students  */
+td img.profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+}
+
+/* student */
+.user-profile .widget-content-area h3:after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    width: 55px;
+    background: #1b55e2;
+    border-radius: 50%;
+    bottom: 1px!important;
+    left: 4px!important;
+}
+
+.user-profile .widget-content-area .user-info-list ul.contacts-block {
+    max-width: 260px!important;
+}
+
+.cgpa {
+    font-size: 1.5rem;
+    color: #1b55e2;
+    font-family: 'Nunito', sans-serif;
+}
+
+/*
+*********************************************
+                Authentication
+*********************************************
+*/
+
+img.auth-logo {
+    height: 60px;
+    width: 60px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.form-form .form-form-wrap form .field-wrapper.input {
+    padding: 5px 0px 5px 0;
+}
+
+.form-form .form-form-wrap form .field-wrapper input {
+    /*padding: 10px 35px 13px 10px;*/
+}
+
+.form-form .form-form-wrap {
+    max-width: 550px;
+}
+
+.err-border {
+    border-color: #dc3545;
+}

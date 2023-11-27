@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 class LoginController extends Controller
 {
     /*
@@ -36,5 +41,52 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Login page view.
+     *
+     * @return void
+     */
+    public function showLoginForm()
+    {
+        $data = ['page_name' => 'login'];
+        return view('auth.login', compact('data'));
+    }
+
+    /**
+     * Handle an authentication attempt.
+     */
+    public function login(Request $request): RedirectResponse
+    {
+
+        $credentials = $request->validate([
+            'email' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended(route('dashboard'))->with('login', 'Login successfully!');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records!',
+        ])->onlyInput('email');
+    }
+
+    /**
+     * Handle logout attempt.
+     */
+    public function logout(Request $request): RedirectResponse
+    {
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect(route('login'));
     }
 }

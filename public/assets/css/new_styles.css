@@ -1,0 +1,23 @@
+.chat-system .user-list-box {
+    width: 100%;
+    max-width: 100%;
+}
+
+.navbar .theme-brand li.theme-logo img {
+    width: 54px;
+    height: 34px;
+    border-radius: 5px;
+}
+
+img.auth-logo {
+    height: 60px;
+    width: 80px;
+}
+
+.header-container .navbar .navbar-item .nav-item.dropdown .nav-link:hover span {
+    color: #555555 !important;
+}
+
+.navbar .navbar-item .nav-item.user-profile-dropdown .dropdown-menu {
+    left: -60px;
+}
