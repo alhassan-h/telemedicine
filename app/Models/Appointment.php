@@ -47,5 +47,14 @@ class Appointment extends Model
         return $this->belongsTo(Patient::class, 'patient_id');
     }
 
+    /**
+     * .
+     *
+     */
+    public function getScheduledDate()
+    {
+        return date('M d, Y H:m A', strtotime("$this->date $this->time"));
+    }
+
 
 }

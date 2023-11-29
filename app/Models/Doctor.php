@@ -68,7 +68,7 @@ class Doctor extends Model
      */
     public function getFullname()
     {
-        return $this->user->first_name." ".$this->user->last_name;
+        return ucwords($this->user->first_name." ".$this->user->last_name);
     }
 
     /**
@@ -115,5 +115,45 @@ class Doctor extends Model
     public function getProfilePicture(): string
     {
         return $this->user->profile;
+    }
+
+    // Appointments
+
+    /**
+     * .
+     *
+     */
+    public function getAppointments()
+    {
+        return Appointment::where([
+            ['doctor_id', $this->id],
+            ])
+        ->get();
+    }
+
+    /**
+     * .
+     *
+     */
+    public function getRequestedAppointments()
+    {
+        return Appointment::where([
+            ['doctor_id', $this->id],
+            ['action', 'noaction'],
+            ])
+        ->get();
+    }
+
+    /**
+     * .
+     *
+     */
+    public function getApprovedAppointments()
+    {
+        return Appointment::where([
+            ['doctor_id', $this->id],
+            ['action', 'approved'],
+            ])
+        ->get();
     }
 }

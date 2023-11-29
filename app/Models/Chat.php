@@ -101,15 +101,16 @@ class Chat extends Model
      */
     public function getDate()
     {
-        $date = date('H:m A', strtotime($this->created_at));
+        $date = date('g:m A', strtotime($this->created_at));
         return $date;
+        // return $this->created_at->humanDiff();
     }
     
     /**
      * .
      *
      */
-    public static function getMessagesFrom(User $sender, User $recipient)
+    public static function getMessagesBetween(User $sender, User $recipient)
     {
         $messages = Chat::where([
             ['sender_id', $sender->id],
@@ -128,9 +129,22 @@ class Chat extends Model
      * .
      *
      */
-    public static function getRecievedMessages()
+    public static function getMessagesFrom(User $user)
     {
-        $messages = Chat::get()
+        $messages = Chat::where('sender_id', $user->id)
+        ->get()
+        ->sortByDesc('created_at');
+        return $messages;
+    }
+    
+    /**
+     * .
+     *
+     */
+    public static function getMessagesTO(User $user)
+    {
+        $messages = Chat::where('reciepient_id', $user->id)
+        ->get()
         ->sortByDesc('created_at');
         return $messages;
     }

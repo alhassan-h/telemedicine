@@ -21,3 +21,122 @@ img.auth-logo {
 .navbar .navbar-item .nav-item.user-profile-dropdown .dropdown-menu {
     left: -60px;
 }
+
+.mask {
+    position: absolute;
+    background-size: cover;
+    background-position: center center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.bg-gradient-dark {
+    background-image: linear-gradient(195deg, #42424a 0%, #191919 100%);
+}
+.opacity-6 {
+    opacity: 0.6 !important;
+}
+
+.widget.widget-card-one.dash-hero.bg {
+    background-color: #0051ff;
+}
+
+/* utility classes */
+.vh-100 {
+    height: 100vh;
+}
+
+.h-100{
+    height: 100%;
+}
+
+.w-100{
+    width: 100%;
+}
+
+.bg-img {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.fs-3rem {
+    font-size: 3rem !important;
+}
+
+.fs-4rem {
+    font-size: 4rem !important;
+}
+
+.fs-5rem {
+    font-size: 5rem !important;
+}
+
+.fs-sm {
+    font-size: .5rem !important;
+}
+
+.fs-md {
+    font-size: .7rem !important;
+}
+
+.min-vh-10 {
+    min-height: 10vh !important;
+}
+
+.form-switch .form-check-input:checked {
+    border-color: #42424a;
+    background-color: #42424a;
+    background-position: right center;
+    background-image: none;
+}
+
+.u-line::before {
+    content: "";
+    position: absolute;
+    height: 50px;
+    background-color: #e91e63;
+    width: 5px;
+    top: 12px;
+    left: -5px;
+    padding: 0;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.display-7 {
+    font-size: calc(1.325rem + .9vw);
+    font-weight: 300;
+    line-height: 1.2;
+  }
+  
+  @media (min-width: 1200px) {
+    .display-7 {
+      font-size: 2rem;
+    }
+  }
+
+  .border-radius-bottom-start-25{
+    border-bottom-left-radius: 40px !important;
+  }
+  
+  .border-radius-bottom-end-25{
+    border-bottom-right-radius: 40px !important;
+  }
+
+.modal-dialog.w-100px {
+    width: 1000px;
+    height: 600px;
+}
+
+@media (min-width: 576px){
+    .modal-dialog.w-100px {
+        max-width: 1000px;
+        max-height: 1000px;
+        margin: 1.75rem auto;
+    }
+}

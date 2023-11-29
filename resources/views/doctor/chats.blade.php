@@ -36,6 +36,7 @@
                                         </div>
                                     </a>
                                 @empty
+                                <span class="p-4 text-primary"> You have no chats yet. Go to Patients' list and chat them up</span>
                                 @endforelse
 
                             <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 503px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 242px;"></div></div></div>

@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Chat;
+use App\Models\Appointment;
 
 class DoctorController extends Controller
 {
@@ -42,11 +43,15 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
+        $doctor = $request->user()->doctor;
+        
         $data = [
             'page_name' => 'dashboard',
-            'analytics' => [],
+            'appointments' => $doctor->getApprovedAppointments(),
+            'appt_count' => count($doctor->getApprovedAppointments()),
+            'req_count' => count($doctor->getRequestedAppointments()),
         ];
 
         return view('doctor.dashboard', compact('data'));
@@ -77,7 +82,7 @@ class DoctorController extends Controller
         $data = [
             'page_name' => 'appointments',
             'patients' => Patient::get(),
-            'appointments' => $request->user()->doctor->appointment,
+            'appointments' => $request->user()->getAppointments(),
         ];
         
         return view('doctor.appointments', compact('data'));
@@ -90,9 +95,19 @@ class DoctorController extends Controller
      */
     public function approveAppointment(Request $request)
     {
+        $user = $request->user();
 
+        $validatedData = $request->validate([
+            'appointment_id' => ['required', 'numeric'],
+            'date' => ['sometimes'],
+            'time' => ['sometimes'],
+        ]);
+        $validatedData['action'] = 'approved';
+        $request = Appointment::find($validatedData['appointment_id']);
+        $update = $request->update($validatedData);
         
-        return redirect()->back()->with('success', '');
+        return redirect()->back()->with('success', 'Request approved successfully!');
+
     }
 
     /**
@@ -102,9 +117,17 @@ class DoctorController extends Controller
      */
     public function rejectAppointment(Request $request)
     {
+        $user = $request->user();
 
+        $validatedData = $request->validate([
+            'appointment_id' => ['required', 'numeric'],
+        ]);
+
+        $request = Appointment::find($validatedData['appointment_id']);
+        $update = $request->update(['action' => 'rejected']);
         
-        return redirect()->back()->with('success', '');
+        return redirect()->back()->with('success', 'Request rejected successfully!');
+
     }
 
     /**
@@ -114,9 +137,17 @@ class DoctorController extends Controller
      */
     public function cancelAppointment(Request $request)
     {
+        $user = $request->user();
 
+        $validatedData = $request->validate([
+            'appointment_id' => ['required', 'numeric'],
+        ]);
+
+        $request = Appointment::find($validatedData['appointment_id']);
+        $update = $request->update(['action' => 'canceled']);
         
-        return redirect()->back()->with('success', '');
+        return redirect()->back()->with('success', 'Request cancelled successfully!');
+
     }
 
     /**
@@ -128,7 +159,7 @@ class DoctorController extends Controller
     {
         $user = $request->user();
 
-        $conversations = Chat::getRecievedMessages();
+        $conversations = $user->getConversations();
         // $a = [];
         // foreach($conversations as $c){
         //     array_search
@@ -153,16 +184,17 @@ class DoctorController extends Controller
      */
     public function chat(Request $request, $id)
     {
-        $sender = User::find($id);
+        $patient = User::find($id);
+        if(!$patient) abort('404');
+
         $reciepient = $request->user();
 
-        if(!$sender) abort('404');
-
-        $chats = Chat::getMessagesFrom($sender, $reciepient);
+        $chats = $reciepient->getConversationWith($patient);
 
         $data = [
             'page_name' => 'chat',
             'reciepient_id' => $id,
+            'patient' => $patient,
             'chats' => $chats,
             
         ];
@@ -175,11 +207,14 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function videochats()
+    public function videochats(Request $request)
     {
+
+        $doctor = $request->user()->doctor;
+
         $data = [
             'page_name' => 'videochats',
-            'analytics' => [],
+            'appointments' => $doctor->getApprovedAppointments(),
         ];
         
         return view('doctor.videochats', compact('data'));

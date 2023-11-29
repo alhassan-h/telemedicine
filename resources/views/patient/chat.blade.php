@@ -2,6 +2,7 @@
 
 @php($chats = $data['chats'])
 @php($reciepient_id = $data['reciepient_id'])
+@php($doctor = $data['doctor'])
 
 @section('content')
 <div id="content" class="main-content">
@@ -20,9 +21,9 @@
                             <div class="chat-meta-user chat-active">
                                 <div class="current-chat-user-name">
                                     <span>
-                                        @php($profile = $chats[0]->user->profile)
+                                        @php($profile = $doctor->profile)
                                         <img src='{{asset("storage/images/users/$profile")}}' alt="dynamic-image">
-                                        <span class="name">Dr. {{$chats[0]->getSenderAlias(Auth::user())}}</span>
+                                        <span class="name">Dr. {{$doctor->doctor->getFullname()}}</span>
                                     </span>
                                 </div>
 
@@ -42,9 +43,9 @@
                                 <div id="chat-conversation-box-scroll" class="chat-conversation-box-scroll">
                                     <div class="chat active-chat" data-chat="person6">
 
-                                        <div class="conversation-start mt-4 mb-4">
+                                        <!-- <div class="conversation-start mt-4 mb-4">
                                             <span>November, 24</span>
-                                        </div>
+                                        </div> -->
                                                 
                                         @forelse($chats as $chat)
                                         <div class="bubble {{$chat->isAuthor(Auth::user())?'me':'you'}}">
@@ -59,7 +60,9 @@
                                             </div>
                                         </div>
                                         @empty
-                                        <span>No messages are available. Once you send message they will appear here</span>
+                                        <div class="chat-not-selected">
+                                            <p> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> Messages unavailable. Send a message to chat</p>
+                                        </div>
                                         @endforelse
                                     </div>               
                                 </div>

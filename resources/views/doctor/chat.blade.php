@@ -2,6 +2,7 @@
 
 @php($chats = $data['chats'])
 @php($reciepient_id = $data['reciepient_id'])
+@php($patient = $data['patient'])
 
 @section('content')
 <div id="content" class="main-content">
@@ -19,8 +20,10 @@
                         <div class="chat-box-inner" style="height: 100%;">
                             <div class="chat-meta-user chat-active">
                                 <div class="current-chat-user-name">
-                                    <span><img src="{{asset('assets/vendor2/assets/img/90x90.jpg')}}" alt="dynamic-image">
-                                        <span class="name">{{$chats[0]->getSenderAlias(Auth::user())}}</span>
+                                    <span>
+                                        @php($profile = $patient->profile)
+                                        <img src='{{asset("storage/images/users/$profile")}}' alt="dynamic-image">
+                                        <span class="name">{{$patient->patient->getFullname()}}</span>
                                     </span>
                                 </div>
 
@@ -57,7 +60,9 @@
                                             </div>
                                         </div>
                                         @empty
-                                        <span>No messages are available. Once you send message they will appear here</span>
+                                        <div class="chat-not-selected">
+                                            <p> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> Messages unavailable. Send a message to chat</p>
+                                        </div>
                                         @endforelse
                                     </div>               
                                 </div>

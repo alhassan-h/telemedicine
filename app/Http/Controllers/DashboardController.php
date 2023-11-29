@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Patient;
 use App\Models\Chat;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -117,7 +118,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Save chat.
+     * Save chat. (AJAX)
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -133,6 +134,47 @@ class DashboardController extends Controller
         $chat = Chat::create($validatedData);
 
         return response()->json("success!");
+
+    }
+
+    /**
+     * . (AJAX)
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function conversation(Request $request)
+    {
+        $validatedData = $request->validate([
+            'reciepient_id' => ['required', 'numeric'],
+        ]);
+
+        
+        $user = $request->user();
+        
+        $reciepient_id = $validatedData['reciepient_id'];
+        $reciepient = User::find($reciepient_id);
+        if(!$reciepient){return response()->json('');}
+        
+        $chats = $user->getConversationWith($reciepient);
+        return response()->json('');
+        $conversation = '';
+        foreach($chats as $chat){
+            $sender = $chat->isAuthor($user)?'me':'you';
+            $conversation .= "<div class='bubble $sender'>"
+                                .'<div class="sender">'
+                                    .'<span>'.'</span>'
+                                .'</div>'
+                                .'<div class="msg">'
+                                    .'<span>'.$chat->getMessage().'</span>'
+                                .'</div>'
+                                .'<div class="timestamp">'
+                                    .'<span>'.$chat->getDate().'</span>'
+                                .'</div>'
+                            .'</div>';
+        }
+        // return response()->json('pass');
+
+        return response()->json($conversation);
 
     }
 

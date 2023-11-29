@@ -43,14 +43,15 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
+        $patient = $request->user()->patient;
+        
         $data = [
             'page_name' => 'dashboard',
-            'analytics' => [
-                'products' => 10,
-                'orders' => 10,
-            ],
+            'appointments' => $patient->getApprovedAppointments(),
+            'appt_count' => count($patient->getApprovedAppointments()),
+            'req_count' => count($patient->getRequestedAppointments()),
         ];
 
         return view('patient.dashboard', compact('data'));
@@ -110,6 +111,26 @@ class PatientController extends Controller
 
         return redirect()->back()->with('success', 'Request sent successfully!');
     }
+    
+    /**
+     * .
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function clearAppointment(Request $request)
+    {
+        $user = $request->user();
+
+        $validatedData = $request->validate([
+            'appointment_id' => ['required', 'numeric'],
+        ]);
+
+        $appointment = Appointment::find($validatedData['appointment_id']);
+        $delete = $appointment->delete();
+        
+        return redirect()->back()->with('success', 'Request cleared successfully!');
+
+    }
 
     /**
      * Show chats.
@@ -120,7 +141,7 @@ class PatientController extends Controller
     {
         $user = $request->user();
 
-        $conversations = Chat::getRecievedMessages();
+        $conversations = $user->getConversations();
         // $a = [];
         // foreach($conversations as $c){
         //     array_search
@@ -128,6 +149,8 @@ class PatientController extends Controller
         //         if($c->created_at > )
         //     }
         // }
+
+        // dd($conversations);
 
         $data = [
             'page_name' => 'chats',
@@ -145,16 +168,17 @@ class PatientController extends Controller
      */
     public function chat(Request $request, $id)
     {
-        $sender = User::find($id);
+        $doctor = User::find($id);
+        if(!$doctor) abort('404');
+
         $reciepient = $request->user();
 
-        if(!$sender) abort('404');
-
-        $chats = Chat::getMessagesFrom($sender, $reciepient);
+        $chats = $reciepient->getConversationWith($doctor);
 
         $data = [
             'page_name' => 'chat',
             'reciepient_id' => $id,
+            'doctor' => $doctor,
             'chats' => $chats,
             
         ];

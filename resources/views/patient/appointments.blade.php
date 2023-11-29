@@ -15,7 +15,7 @@
                             <div class="media-body">
                                 <div class="course">
                                     <h3>Video Conference Appointment</h3>
-                                    <p class="meta-date">Schedule an appointment with a Doctor here</p>
+                                    <p class="meta-date text-primary">Schedule an appointment with a Doctor.</p>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                         <div class="media">
                             <div class="media-body">
                                 <div class="course">
-                                    <h6 class="text-secondary">Accepted Appointments</h6>
+                                    <h6 class="text-success">Approved Appointments</h6>
                                 </div>
                             </div>
                         </div>
@@ -140,29 +140,53 @@
                                     </thead>
                                     <tbody>
                                     @foreach($appointments as $appointment)
-                                        @if($appointment->action == 'noaction' || $appointment->action == 'rejected')
+                                        @if($appointment->action != 'approved')
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>Dr. {{$appointment->doctor->getFullname()}}</td>
                                             <td>{{date('M d, Y H:m A',strtotime("$appointment->date $appointment->time"))}}</td>
                                             <td>{{ucfirst($appointment->summary)}}</td>
                                             <td>
-                                                @if($appointment->action == 'noaction')
+                                                @if($appointment->action ==     'noaction')
                                                 <span class="badge badge-warning" type="submit">Pending</span>
                                                 @elseif($appointment->action == 'rejected')
-                                                <span class="badge badge-danger" type="submit">Rejected</span>
+                                                <span class="badge badge-secondary" type="submit">Rejected</span>
+                                                @elseif($appointment->action == 'canceled')
+                                                <span class="badge badge-danger" type="submit">Cancelled</span>
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                <form method="post" action="">
-                                                    @csrf
-                                                    <input type="hidden" name="appointment_id" value="">
-                                                    @if($appointment->action == 'noaction')
-                                                    <button class="btn btn-danger" type="submit">Cancel</button>
-                                                    @elseif($appointment->action == 'rejected')
-                                                    <button class="btn btn-warning" type="submit">Clear</button>
-                                                    @endif
-                                                </form>
+                                                <div class="reject">
+                                                @if($appointment->action != 'noaction' && $appointment->action != 'approved')
+                                                    <button class="btn btn-danger py-0 px-2" type="submit" data-toggle="modal" data-target="#clearApptReq-{{$appointment->id}}">Clear</button>
+                                                    <div class="modal fade" id="clearApptReq-{{$appointment->id}}" tabindex="-1" role="dialog" aria-labelledby="clearApptReq-{{$appointment->id}}Label" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="clearApptReq-{{$appointment->id}}Label">Confirm Clearing Appointment Request</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form method="post" id="clearApptReq-{{$appointment->id}}Form" action="{{route('patient.appointment.clear')}}">
+                                                                        @csrf
+                                                                        <input type="hidden" name="appointment_id" value="{{$appointment->id}}">
+                                                                        <div class="text-center">
+                                                                            <h3>Are You Sure?</h3>
+                                                                            <h6>You want to clear this request</h6>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer d-flex justify-content-around">
+                                                                    <button class="btn mr-4" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancel</button>
+                                                                    <button type="submit" class="btn btn-danger" form="clearApptReq-{{$appointment->id}}Form">Yes, Clear</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                </div>
                                             </td>
                                         </tr>
                                         @endif

@@ -12,6 +12,7 @@
 <link href="{{asset('assets/css/new_styles.css')}}" rel="stylesheet" type="text/css" />
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
+<!-- <script src="https://cdn.srv.whereby.com/embed/v1.js"></script> -->
 
 @switch($page_name)
 {{-- login --}}
@@ -47,6 +48,11 @@
   @case('student profile')
   <link href="{{asset('assets/vendor2/assets/css/users/user-profile.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{asset('assets/vendor2/assets/css/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
+  @break
+
+  {{-- student profile --}}
+  @case(videochats')
+  <link href="{{asset('assets/vendor2/assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" />
   @break
 @endswitch
   

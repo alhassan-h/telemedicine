@@ -3,12 +3,12 @@
 
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-logo">
-                <a href="dashboard.php">
+                <a href="{{route('home')}}">
                     <img src="{{asset('storage/images/gsulogo-mini2.png')}}" class="navbar-logo" alt="logo">
                 </a>
             </li>
             <li class="nav-item theme-text">
-                <a href="dashboard.php" class="nav-link">ASHMED TELEMEDICINE INTERFACE</a>
+                <a href="{{route('home')}}" class="nav-link">ASHMED TELEMEDICINE INTERFACE</a>
             </li>
         </ul>
 

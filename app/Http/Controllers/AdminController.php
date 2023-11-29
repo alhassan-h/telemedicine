@@ -45,7 +45,10 @@ class AdminController extends Controller
     {
         $data = [
             'page_name' => 'dashboard',
-            'analytics' => [],
+            'analytics' => [
+                'doctors_count' => count(Doctor::get()),
+                'patients_count' => count(Patient::get()),
+            ],
         ];
 
         return view('admin.dashboard', compact('data'));

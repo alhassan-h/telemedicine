@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () { return redirect(route('home')); });
 Route::get('/home', function () { return redirect(route('home')); });
 Route::get('/www.ashmed.com', function () { return redirect(route('home')); });
-
-Auth::routes();
 
 Route::get('/ashmed.com', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -26,8 +26,9 @@ Route::get('/doctors', [App\Http\Controllers\DashboardController::class, 'doctor
 Route::get('/patients', [App\Http\Controllers\DashboardController::class, 'patients'])->name('patients');
 Route::get('/appointments', [App\Http\Controllers\DashboardController::class, 'appointments'])->name('appointments');
 Route::get('/chats', [App\Http\Controllers\DashboardController::class, 'chats'])->name('chats');
+Route::post('/chats/savechat', [App\Http\Controllers\DashboardController::class, 'savechat'])->name('chats.savechat');
+Route::post('/chats/conversation', [App\Http\Controllers\DashboardController::class, 'conversation'])->name('chats.conversation');
 Route::get('/videochats', [App\Http\Controllers\DashboardController::class, 'videochats'])->name('videochats');
-Route::post('/chats/savechat', [App\Http\Controllers\DashboardController::class, 'savechat'])->name('chats.save');
 
 
 Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
@@ -45,9 +46,9 @@ Route::post('/admin/patients/delete', [App\Http\Controllers\AdminController::cla
 
 Route::get('/doctor/dashboard', [App\Http\Controllers\DoctorController::class, 'index'])->name('doctor.dashboard');
 Route::get('/doctor/appointments', [App\Http\Controllers\DoctorController::class, 'appointments'])->name('doctor.appointments');
-Route::get('/doctor/appointments/approve', [App\Http\Controllers\DoctorController::class, 'approveAppointment'])->name('doctor.appointment.approve');
-Route::get('/doctor/appointments/reject', [App\Http\Controllers\DoctorController::class, 'rejectAppointment'])->name('doctor.appointment.reject');
-Route::get('/doctor/appointments/cancel', [App\Http\Controllers\DoctorController::class, 'cancelAppointment'])->name('doctor.appointment.cancel');
+Route::post('/doctor/appointments/approve', [App\Http\Controllers\DoctorController::class, 'approveAppointment'])->name('doctor.appointment.approve');
+Route::post('/doctor/appointments/reject', [App\Http\Controllers\DoctorController::class, 'rejectAppointment'])->name('doctor.appointment.reject');
+Route::post('/doctor/appointments/cancel', [App\Http\Controllers\DoctorController::class, 'cancelAppointment'])->name('doctor.appointment.cancel');
 Route::get('/doctor/profile', [App\Http\Controllers\DoctorController::class, 'profile'])->name('doctor.profile');
 Route::get('/doctor/patients', [App\Http\Controllers\DoctorController::class, 'patients'])->name('doctor.patients');
 Route::get('/doctor/patients/{id}', [App\Http\Controllers\DoctorController::class, 'patient'])->name('doctor.patient');
@@ -61,6 +62,7 @@ Route::get('/patient/doctors', [App\Http\Controllers\PatientController::class, '
 Route::get('/patient/doctors/{id}', [App\Http\Controllers\PatientController::class, 'doctor'])->name('patient.doctor');
 Route::get('/patient/appointments', [App\Http\Controllers\PatientController::class, 'appointments'])->name('patient.appointments');
 Route::post('/patient/appointments/request', [App\Http\Controllers\PatientController::class, 'requestAppointment'])->name('patient.appointments.request');
+Route::post('/patient/appointments/clear', [App\Http\Controllers\PatientController::class, 'clearAppointment'])->name('patient.appointment.clear');
 Route::get('/patient/chats', [App\Http\Controllers\PatientController::class, 'chats'])->name('patient.chats');
 Route::get('/patient/chats/{id}', [App\Http\Controllers\PatientController::class, 'chat'])->name('patient.chat');
 Route::get('/patient/videochats', [App\Http\Controllers\PatientController::class, 'videochats'])->name('patient.videochats');

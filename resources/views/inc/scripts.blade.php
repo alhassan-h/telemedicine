@@ -87,6 +87,9 @@
             if(event.key === 'Enter') {send_msg();}
         });
 
+        // setInterval(refresh_msg, 1000);
+
+        // functions defination
         function send_msg() {
             const message = $('#msg-write-box').val();
             if ( '' === message ) return;
@@ -104,7 +107,7 @@
             $.ajax({
                 headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type:'post',
-                url: "{{route('chats.save')}}",
+                url: "{{route('chats.savechat')}}",
                 data : {reciepient_id:reciepient_id,message:message},
                 success : function(data, status, jqXHR){
                     Snackbar.show({
@@ -136,8 +139,108 @@
             });
             
         }
-    </script>
+        
+        function refresh_msg() {
 
+            const reciepient_id = "{{$reciepient_id}}";
+            
+            $.ajax({
+                headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type:'post',
+                url: "{{route('chats.conversation')}}",
+                data : {reciepient_id:reciepient_id},
+                success : function(data, status, jqXHR){
+                    const sent_msg = '<div class="bubble me">'+
+                    '<div class="msg"><span>'+ data +'</span></div>'+
+                    '<div class="timestamp"><span>'+ 'fmt_st' +'</span></div></div>';
+                    const active_chat = $('.active-chat').eq(0);
+                    active_chat.html( '' );
+                    active_chat.append( sent_msg );
+                    const getScrollContainer = document.querySelector('.chat-conversation-box');
+                    getScrollContainer.scrollTop = getScrollContainer.scrollHeight;
+                    $('#msg-write-box').val('');   
+                    console.log(data)                 
+                }
+            });
+            
+        }
+    </script>
+    @break
+    @case('videochats')
+    <!-- <script src="https://sdk.videosdk.live/rtc-js-prebuilt/0.3.21/rtc-js-prebuilt.js"></script>
+    <script>
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+
+        script.addEventListener("load", function (event) {
+            const meeting = new VideoSDKMeeting();
+
+            const config = {
+            name: "John Doe",
+            apiKey: "51bc1640-a382-4ed9-a049-535b2b104f83", // generated in Setup
+            meetingId: "milkyway", // enter your meeting id
+
+            containerId: null,
+            redirectOnLeave: "https://www.videosdk.live/",
+
+            micEnabled: true,
+            webcamEnabled: true,
+            participantCanToggleSelfWebcam: true,
+            participantCanToggleSelfMic: true,
+
+            chatEnabled: true,
+            screenShareEnabled: true,
+            pollEnabled: true,
+            whiteBoardEnabled: true,
+            raiseHandEnabled: true,
+
+            recordingEnabled: true,
+            recordingWebhookUrl: "https://www.videosdk.live/callback",
+            participantCanToggleRecording: true,
+
+            brandingEnabled: true,
+            brandLogoURL: "https://picsum.photos/200",
+            brandName: "Awesome startup",
+            poweredBy: true,
+
+            participantCanLeave: true, // if false, leave button won't be visible
+
+            // Live stream meeting to youtube
+            livestream: {
+                autoStart: true,
+                outputs: [
+                // {
+                //   url: "rtmp://x.rtmp.youtube.com/live2",
+                //   streamKey: "<STREAM KEY FROM YOUTUBE>",
+                // },
+                ],
+            },
+
+            whiteboardEnabled: true,
+
+            permissions: {
+                askToJoin: false, // Ask joined participants for entry in meeting
+                toggleParticipantMic: true, // Can toggle other participant's mic
+                toggleParticipantWebcam: true, // Can toggle other participant's webcam
+                drawOnWhiteboard: true,
+                toggleWhiteboard: true,
+
+            },
+
+            joinScreen: {
+                visible: true, // Show the join screen ?
+                title: "Daily scrum", // Meeting title
+                meetingUrl: window.location.href, // Meeting joining url
+            },
+            };
+
+            meeting.init(config);
+        });
+
+        script.src =
+            "https://sdk.videosdk.live/rtc-js-prebuilt/0.1.21/rtc-js-prebuilt.js";
+        document.getElementsByTagName("head")[0].appendChild(script);
+        </script> -->
     @break
 
 @endswitch

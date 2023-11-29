@@ -28,16 +28,9 @@
     @include('inc.navbar-auth')
     <!--  END NAVBAR  -->
 
-    <!--  BEGIN MAIN CONTAINER  -->
-    <div class="mx-auto mt-5">
-        <div class="overlay"></div>
-        <div class="search-overlay"></div>
-
-        <!--  BEGIN CONTENT AREA  -->
-        @yield('content')
-        <!--  END CONTENT AREA  -->
-    </div>
-    <!-- END MAIN CONTAINER -->
+    <!--  BEGIN CONTENT  -->
+    @yield('content')
+    <!-- END CONTENT -->
 
 </body>
 </html>

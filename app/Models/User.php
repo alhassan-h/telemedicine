@@ -120,6 +120,91 @@ class User extends Authenticatable
      */
     public function getFullname()
     {
-        return $this->first_name." ".$this->last_name;
+        return ucwords($this->first_name." ".$this->last_name);
     }
+
+    /*
+     ****************************************************
+     * Chat Message    
+     ****************************************************
+     */
+    public function getSentMessages()
+    {
+        return Chat::where('sender_id', $this->id)
+        ->get()
+        ->sortByDesc('created_at');
+    }
+
+    /**
+     * .
+     *
+     */
+    public function getRecievedMessages()
+    {
+        return Chat::where('reciepient_id', $this->id)
+        ->get()
+        ->sortByDesc('created_at');
+    }
+    
+    /**
+     * .
+     *
+     */
+    public function getMessagesFrom(User $user)
+    {
+        return Chat::where([
+            ['sender_id', $user->id],
+            ['reciepient_id', $this->id],
+            ])
+        ->get();
+    }
+    
+        /**
+         * .
+         *
+         */
+        public function getConversations()
+        {
+            return Chat::where([
+                    ['sender_id', $this->id],
+                ])
+                ->OrWhere([
+                    ['reciepient_id', $this->id],
+                ])
+            ->get();
+        }
+   
+    /**
+     * .
+     *
+     */
+    public function getConversationWith(User $user)
+    {
+        return Chat::where([
+            ['sender_id', $this->id],
+            ['reciepient_id', $user->id],
+            ])
+            ->OrWhere([
+                ['sender_id', $user->id],
+                ['reciepient_id', $this->id],
+            ])
+        ->get();
+    }
+
+    /*
+     ****************************************************
+     * Appointmet    
+     ****************************************************
+     */
+
+    /**
+     * .
+     *
+     */
+    public function getAppointments()
+    {
+        return ($this->isDoctor())?
+            $this->doctor->getAppointments():$this->patient->getAppointments();
+    }
+
 }

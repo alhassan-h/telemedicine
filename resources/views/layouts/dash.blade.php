@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     
     <title>Ashmed</title>
-    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon.ico')}}"/>
+    <link rel="icon" type="image/x-icon" href="{{asset('storage/images/favicon.ico')}}"/>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

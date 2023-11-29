@@ -31,7 +31,7 @@
                         <div class="media">
                             <div class="media-body">
                                 <div class="course">
-                                    <h6 class="text-secondary">Accepted Appointments</h6>
+                                    <h6 class="text-success">Approved Appointments</h6>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                             <td>{{date('M d, Y H:m A',strtotime("$appointment->date $appointment->time"))}}</td>
                                             <td>{{ucfirst($appointment->summary)}}</td>
                                             <td class="d-flex justify-content-around">
-                                                <div class="reject">
+                                                <div class="">
                                                     <button class="btn btn-danger" type="submit" data-toggle="modal" data-target="#cancelAppReq-{{$appointment->id}}">Cancel</button>
                                                     <div class="modal fade" id="cancelAppReq-{{$appointment->id}}" tabindex="-1" role="dialog" aria-labelledby="cancelAppReq-{{$appointment->id}}Label" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
@@ -110,7 +110,7 @@
                         <div class="media">
                             <div class="media-body">
                                 <div class="course">
-                                    <h6 class="text-secondary">Requested Appointments</h6>
+                                    <h6 class="text-secondary">Appointment Requestes</h6>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +155,7 @@
                                                                 <p class="text-primary mb-3 p-0">You may adjust the date and time in accordance with your schedule.</p>
                                                                 <form method="post" id="approveAppReq-{{$appointment->id}}Form" action="{{route('doctor.appointment.approve')}}">
                                                                     @csrf
+                                                                    <input type="hidden" name="appointment_id" value="{{$appointment->id}}">
                                                                     <div class="row mb-4">
                                                                         <div class="col">
                                                                             <label for="eventDate">Appointment Date</label>
@@ -172,7 +173,7 @@
                                                                 </form>
                                                             </div>
                                                             <div class="modal-footer d-flex justify-content-around">
-                                                                <button class="btn btn-danger mr-4" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancel</button>
+                                                                <button class="btn mr-4" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancel</button>
                                                                 <button type="submit" class="btn btn-success" form="approveAppReq-{{$appointment->id}}Form">Approve</button>
                                                             </div>
                                                         </div>
@@ -203,7 +204,7 @@
                                                             </div>
                                                             <div class="modal-footer d-flex justify-content-around">
                                                                 <button class="btn mr-4" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Cancel</button>
-                                                                <button type="submit" class="btn btn-success" form="rejectAppReq-{{$appointment->id}}Form">Approve</button>
+                                                                <button type="submit" class="btn btn-danger" form="rejectAppReq-{{$appointment->id}}Form">Yes, Reject</button>
                                                             </div>
                                                         </div>
                                                     </div>
