@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="nav-item theme-text">
-                <a href="{{route('home')}}" class="nav-link">ASHMED TELEMEDICINE INTERFACE</a>
+                <a href="{{route('home')}}" class="nav-link">ASHMED TELEMEDICINE PORTAL</a>
             </li>
         </ul>
 
