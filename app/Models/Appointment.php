@@ -51,6 +51,30 @@ class Appointment extends Model
      * .
      *
      */
+    public function getDoctor()
+    {
+        return Doctor::withTrashed()
+            ->where('id', $this->doctor_id)
+            ->get()
+            ->first();
+    }
+
+    /**
+     * .
+     *
+     */
+    public function getPatient()
+    {
+        return Patient::withTrashed()
+            ->where('id', $this->patient_id)
+            ->get()
+            ->first();
+    }
+
+    /**
+     * .
+     *
+     */
     public function getScheduledDate()
     {
         return date('M d, Y H:m A', strtotime("$this->date $this->time"));

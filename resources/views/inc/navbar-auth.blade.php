@@ -3,7 +3,7 @@
 
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-logo">
-                <a href="dashboard.php">
+                <a href="{{route('home')}}">
                     <img src="{{asset('storage/images/gsulogo-mini2.png')}}" class="navbar-logo" alt="logo">
                 </a>
             </li>

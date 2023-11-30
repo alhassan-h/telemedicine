@@ -30,27 +30,13 @@
   <link href="{{asset('assets/css/new_styles.css')}}" rel="stylesheet" type="text/css" />
   @break
 
-  {{-- course or assessments --}}
-  @case('course')
-  @case('assessments')
-  <link href="{{asset('assets/vendor2/assets/css/components/tabs-accordian/custom-tabs.css')}}" rel="stylesheet" type="text/css" />
-  <link href="{{asset('assets/vendor2/assets/css/components/tabs-accordian/custom-accordions.css')}}" rel="stylesheet" type="text/css" />
-  <link href="{{asset('assets/vendor2/assets/css/plugins/file-upload/file-upload-with-preview.min.css')}}" rel="stylesheet" type="text/css" />
-  @break
-
   {{-- profile --}}
   @case('profile')
   <link href="{{asset('assets/vendor2/assets/css/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{asset('assets/vendor2/plugins/dropify/dropify.min.css')}}" rel="stylesheet" type="text/css" />
   @break
 
-  {{-- student profile --}}
-  @case('student profile')
-  <link href="{{asset('assets/vendor2/assets/css/users/user-profile.css')}}" rel="stylesheet" type="text/css" />
-  <link href="{{asset('assets/vendor2/assets/css/users/account-setting.css')}}" rel="stylesheet" type="text/css" />
-  @break
-
-  {{-- student profile --}}
+  {{-- videochats --}}
   @case(videochats')
   <link href="{{asset('assets/vendor2/assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css" />
   @break

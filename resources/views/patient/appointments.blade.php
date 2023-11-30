@@ -99,7 +99,7 @@
                                     @if($appointment->action == 'approved')
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>Dr. {{$appointment->doctor->getFullname()}}</td>
+                                        <td>Dr. {{$appointment->getDoctor()->getFullname()}}</td>
                                         <td>{{date('M d, Y H:m A',strtotime("$appointment->date $appointment->time"))}}</td>
                                         <td>{{ucfirst($appointment->summary)}}</td>
                                     </tr>
@@ -143,7 +143,7 @@
                                         @if($appointment->action != 'approved')
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>Dr. {{$appointment->doctor->getFullname()}}</td>
+                                            <td>Dr. {{$appointment->getDoctor()->getFullname()}}</td>
                                             <td>{{date('M d, Y H:m A',strtotime("$appointment->date $appointment->time"))}}</td>
                                             <td>{{ucfirst($appointment->summary)}}</td>
                                             <td>

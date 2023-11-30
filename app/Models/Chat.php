@@ -40,6 +40,27 @@ class Chat extends Model
      * .
      *
      */
+    public function getUser()
+    {
+        return User::withTrashed()
+            ->where('id', $this->sender_id)
+            ->get()
+            ->first();
+    }
+
+    /**
+     * .
+     *
+     */
+    public function get_thread_id()
+    {
+        return ($this->sender_id) + ($this->reciepient_id);
+    }
+
+    /**
+     * .
+     *
+     */
     public function getMessage()
     {
         return $this->message;
@@ -61,7 +82,7 @@ class Chat extends Model
     public function getSender()
     {
         $user = User::find($this->sender_id);
-        return $user->isDoctor()?$user->doctor->getFullname():$user->patient->getFullname();
+        return $user->isDoctor()?$user->getDoctor():$user->getPatient();
     }
 
     /**
@@ -71,7 +92,7 @@ class Chat extends Model
     public function getSenderAlias(User $user)
     {
         $user = $this->isAuthor($user)?User::find($this->reciepient_id):User::find($this->sender_id);
-        return $user->isDoctor()?$user->doctor->getFullname():$user->patient->getFullname();
+        return $user->isDoctor()?$user->getDoctor()->getFullname():$user->getPatient()->getFullname();
     }
 
     /**
@@ -92,7 +113,7 @@ class Chat extends Model
     public function getReciepient()
     {
         $user = User::find($this->reciepient_id);
-        return $user->isDoctor()?$user->doctor->getFullname():$user->patient->getFullname();
+        return $user->isDoctor()?$user->getDoctor():$user->getPatient();
     }
 
     /**

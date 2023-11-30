@@ -38,6 +38,24 @@ class PatientController extends Controller
         });
     }
 
+    
+    /**
+     * Show the patient profile.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function profile(Request $request)
+    {
+        $patient = $request->user()->getPatient();
+        
+        $data = [
+            'page_name' => 'profile',
+            'appointments' => $patient->getApprovedAppointments(),
+        ];
+
+        return view('patient.profile', compact('data'));
+    }
+
     /**
      * Show the patient dashboard.
      *
@@ -45,7 +63,7 @@ class PatientController extends Controller
      */
     public function index(Request $request)
     {
-        $patient = $request->user()->patient;
+        $patient = $request->user()->getPatient();
         
         $data = [
             'page_name' => 'dashboard',
@@ -83,7 +101,7 @@ class PatientController extends Controller
         $data = [
             'page_name' => 'appointments',
             'doctors' => Doctor::get(),
-            'appointments' => $request->user()->patient->appointment,
+            'appointments' => $request->user()->getPatient()->appointment,
         ];
         // dd($data['appointments']);
         
@@ -97,7 +115,7 @@ class PatientController extends Controller
      */
     public function requestAppointment(Request $request)
     {
-        $patient = $request->user()->patient;
+        $patient = $request->user()->getPatient();
         $validatedData = $request->validate([
             'doctor_id' => ['required','numeric'],
             'date' => ['sometimes'],
@@ -141,16 +159,7 @@ class PatientController extends Controller
     {
         $user = $request->user();
 
-        $conversations = $user->getConversations();
-        // $a = [];
-        // foreach($conversations as $c){
-        //     array_search
-        //     if( in_array([$c->sender_id, $c->reciepient_id], $a) || in_array([$c->reciepient_id, $c->sender_id], $a)){
-        //         if($c->created_at > )
-        //     }
-        // }
-
-        // dd($conversations);
+        $conversations = $user->getConversations()->sortByDesc('created_at');
 
         $data = [
             'page_name' => 'chats',
@@ -191,11 +200,13 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function videochats()
+    public function videochats(Request $request)
     {
+        $patient = $request->user()->getPatient();
+
         $data = [
             'page_name' => 'videochats',
-            
+            'appointment' => $patient->getFirstApprovedAppointment(),
         ];
         
         return view('patient.videochats', compact('data'));

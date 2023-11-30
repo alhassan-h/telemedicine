@@ -65,6 +65,13 @@
     <script src="{{asset('assets/vendor2/assets/js/dashboard/dash_1.js')}}"></script>
     @break
 
+    @case('profile')
+    <script src="{{asset('assets/vendor2/plugins/dropify/dropify.min.js')}}"></script>
+    <script src="{{asset('assets/vendor2/plugins/blockui/jquery.blockUI.min.js')}}"></script>
+    <script src="{{asset('assets/vendor2/plugins/tagInput/tags-input.js')}}"></script>
+    <script src="{{asset('assets/vendor2/assets/js/users/account-settings.js')}}"></script>
+    @break
+
     {{-- chats --}}
     @case('chats')
     <script src="{{asset('assets/vendor2/assets/js/apps/mailbox-chat.js')}}"></script>
@@ -87,7 +94,9 @@
             if(event.key === 'Enter') {send_msg();}
         });
 
-        // setInterval(refresh_msg, 1000);
+        setInterval(refresh_msg, 2000);
+
+        var last_message_id = "{{$chat->id}}";
 
         // functions defination
         function send_msg() {
@@ -127,13 +136,13 @@
                     });
                 },
                 complete: function(jqXHR, status){
-                    const sent_msg = '<div class="bubble me">'+
-                    '<div class="msg"><span>'+ message +'</span></div>'+
-                    '<div class="timestamp"><span>'+ fmt_st +'</span></div></div>';
-                    const active_chat = $('.active-chat').eq(0);
-                    active_chat.append( sent_msg );
-                    const getScrollContainer = document.querySelector('.chat-conversation-box');
-                    getScrollContainer.scrollTop = getScrollContainer.scrollHeight;
+                    // const sent_msg = '<div class="bubble me">'+
+                    // '<div class="msg"><span>'+ message +'</span></div>'+
+                    // '<div class="timestamp"><span>'+ fmt_st +'</span></div></div>';
+                    // const active_chat = $('.active-chat').eq(0);
+                    // active_chat.append( sent_msg );
+                    // const getScrollContainer = document.querySelector('.chat-conversation-box');
+                    // getScrollContainer.scrollTop = getScrollContainer.scrollHeight;
                     $('#msg-write-box').val('');
                 }
             });
@@ -141,25 +150,24 @@
         }
         
         function refresh_msg() {
-
+            
             const reciepient_id = "{{$reciepient_id}}";
+            console.log('last_message_id: ', last_message_id)                 
             
             $.ajax({
                 headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type:'post',
                 url: "{{route('chats.conversation')}}",
-                data : {reciepient_id:reciepient_id},
+                data : {reciepient_id:reciepient_id,last_message_id:last_message_id},
                 success : function(data, status, jqXHR){
-                    const sent_msg = '<div class="bubble me">'+
-                    '<div class="msg"><span>'+ data +'</span></div>'+
-                    '<div class="timestamp"><span>'+ 'fmt_st' +'</span></div></div>';
-                    const active_chat = $('.active-chat').eq(0);
-                    active_chat.html( '' );
-                    active_chat.append( sent_msg );
-                    const getScrollContainer = document.querySelector('.chat-conversation-box');
-                    getScrollContainer.scrollTop = getScrollContainer.scrollHeight;
-                    $('#msg-write-box').val('');   
-                    console.log(data)                 
+                    if (data.msg != '') {
+                        const active_chat = $('.active-chat').eq(0);
+                        active_chat.append( data.msg );
+                        const getScrollContainer = document.querySelector('.chat-conversation-box');
+                        getScrollContainer.scrollTop = getScrollContainer.scrollHeight;
+                        last_message_id = data.last_message_id         
+                        console.log(data)
+                    }
                 }
             });
             

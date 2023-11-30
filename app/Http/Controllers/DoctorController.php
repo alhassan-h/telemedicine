@@ -45,7 +45,7 @@ class DoctorController extends Controller
      */
     public function index(Request $request)
     {
-        $doctor = $request->user()->doctor;
+        $doctor = $request->user()->getDoctor();
         
         $data = [
             'page_name' => 'dashboard',
@@ -55,6 +55,23 @@ class DoctorController extends Controller
         ];
 
         return view('doctor.dashboard', compact('data'));
+    }
+
+    /**
+     * Show the doctor profile.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function profile(Request $request)
+    {
+        $doctor = $request->user()->getDoctor();
+        
+        $data = [
+            'page_name' => 'profile',
+            'appointments' => $doctor->getApprovedAppointments(),
+        ];
+
+        return view('doctor.profile', compact('data'));
     }
 
     /**
@@ -159,14 +176,7 @@ class DoctorController extends Controller
     {
         $user = $request->user();
 
-        $conversations = $user->getConversations();
-        // $a = [];
-        // foreach($conversations as $c){
-        //     array_search
-        //     if( in_array([$c->sender_id, $c->reciepient_id], $a) || in_array([$c->reciepient_id, $c->sender_id], $a)){
-        //         if($c->created_at > )
-        //     }
-        // }
+        $conversations = $user->getConversations()->sortByDesc('created_at');
 
         $data = [
             'page_name' => 'chats',
@@ -210,7 +220,7 @@ class DoctorController extends Controller
     public function videochats(Request $request)
     {
 
-        $doctor = $request->user()->doctor;
+        $doctor = $request->user()->getDoctor();
 
         $data = [
             'page_name' => 'videochats',
@@ -218,5 +228,53 @@ class DoctorController extends Controller
         ];
         
         return view('doctor.videochats', compact('data'));
+    }
+
+    /**
+     * Show videochats.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function startVideoCall(Request $request)
+    {
+
+        $doctor = $request->user()->getDoctor();
+
+        $validatedData = $request->validate([
+            'appointment_id' => ['required', 'numeric'],
+        ]);
+        
+        $appointment = Appointment::find($validatedData['appointment_id']);
+        $validatedData['patient_id'] = $appointment->id;
+        $appointment->update(['status' => 'done']);
+        
+        // $videoChat = VideoChat::create($validatedData);
+
+        return redirect()->back()->with('success', 'Video call session created successfully!');
+
+    }
+  
+    /**
+     * Show videochats.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function endVideoCall(Request $request)
+    {
+
+        $doctor = $request->user()->getDoctor();
+
+        $validatedData = $request->validate([
+            'appointment_id' => ['required', 'numeric'],
+        ]);
+        
+        $appointment = Appointment::find($validatedData['appointment_id']);
+        $appointment->delete();
+        
+        // $validatedData['patient_id'] = $appointment->id;
+        // $videoChat = VideoChat::create($validatedData);
+
+        return redirect()->back()->with('success', 'Video call session ended successfully!');
+
     }
 }

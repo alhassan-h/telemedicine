@@ -23,7 +23,7 @@
                                     <span>
                                         @php($profile = $doctor->profile)
                                         <img src='{{asset("storage/images/users/$profile")}}' alt="dynamic-image">
-                                        <span class="name">Dr. {{$doctor->doctor->getFullname()}}</span>
+                                        <span class="name">Dr. {{$doctor->getDoctor()->getFullname()}}</span>
                                     </span>
                                 </div>
 

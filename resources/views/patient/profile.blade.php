@@ -73,7 +73,7 @@
                                                                     <label for="phone">Phone Number</label>
                                                                     <input type="text" class="form-control mb-4" id="phone" placeholder="Phone Number" value="" name="phone">
                                                                 </div>
-                                                            </div>                                
+                                                            </div>                                 
                                                         </div>
                                                     </div>
                                                 </div>

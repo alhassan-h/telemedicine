@@ -12,12 +12,12 @@
                             <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12 hp-left">
                                 <div class="h-profile">
                                     <div class="hp-img-circle">
-                                        @php($profile = Auth::user()->doctor->getProfilePicture())
+                                        @php($profile = Auth::user()->getDoctor()->getProfilePicture())
                                         <img src='{{asset("storage/images/users/$profile")}}'>
                                     </div>
                                     <div class="hp-bio">
-                                        <h5 class="hp-name mb-2">Dr. {{Auth::user()->doctor->getFullname()}}</h5>
-                                        <p class="hp-dept-name">{{ucwords(Auth::user()->doctor->getSpecialization())}}</p>
+                                        <h5 class="hp-name mb-2">Dr. {{Auth::user()->getDoctor()->getFullname()}}</h5>
+                                        <p class="hp-dept-name">{{ucwords(Auth::user()->getDoctor()->getSpecialization())}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                             </div>
                                         </div>
                                         <div class="t-name">
-                                            <h4>{{$appointment->patient->getFullname()}}</h4>
+                                            <h4>{{$appointment->getPatient()->getFullname()}}</h4>
                                             <p class="meta-date">{{date('M d, Y ',strtotime("$appointment->date"))}}</p>
                                         </div>
 

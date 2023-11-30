@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Patient extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -47,9 +48,21 @@ class Patient extends Model
      * .
      *
      */
+    public function getUser()
+    {
+        return User::withTrashed()
+            ->where('id', $this->user_id)
+            ->get()
+            ->first();
+    }
+
+    /**
+     * .
+     *
+     */
     public function getFirstName()
     {
-        return $this->user->first_name;
+        return $this->getUser()->first_name;
     }
     
     /**
@@ -58,7 +71,7 @@ class Patient extends Model
      */
     public function getLastName()
     {
-        return $this->user->last_name;
+        return $this->getUser()->last_name;
     }
 
     /**
@@ -67,7 +80,7 @@ class Patient extends Model
      */
     public function getFullname()
     {
-        return ucwords($this->user->first_name." ".$this->user->last_name);
+        return ucwords($this->getUser()->first_name." ".$this->getUser()->last_name);
     }
 
     /**
@@ -76,7 +89,7 @@ class Patient extends Model
      */
     public function getGender()
     {
-        return $this->user->gender;
+        return $this->getUser()->gender;
     }
 
     /**
@@ -85,7 +98,7 @@ class Patient extends Model
      */
     public function getPhone()
     {
-        return $this->user->phone;
+        return $this->getUser()->phone;
     }
 
     /**
@@ -94,7 +107,7 @@ class Patient extends Model
      */
     public function getEmail()
     {
-        return $this->user->email;
+        return $this->getUser()->email;
     }
 
     /**
@@ -103,7 +116,7 @@ class Patient extends Model
      */
     public function getProfilePicture(): string
     {
-        return $this->user->profile;
+        return $this->getUser()->profile;
     }
 
     // Appointments
@@ -131,6 +144,20 @@ class Patient extends Model
             ['action', 'noaction'],
             ])
         ->get();
+    }
+
+    /**
+     * .
+     *
+     */
+    public function getFirstApprovedAppointment()
+    {
+        return Appointment::where([
+            ['patient_id', $this->id],
+            ['action', 'approved'],
+            ])
+        ->get()
+        ->first();
     }
 
     /**

@@ -50,7 +50,7 @@
                                 @foreach($data['patients'] as $patient)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>Dr. {{ucwords($patient->getFullname())}}</td>
+                                    <td>{{ucwords($patient->getFullname())}}</td>
                                     <td>{{ucwords($patient->getGender())}}</td>
                                     <td>
                                         <p class="mb-1 p-0">{{ucwords($patient->getPhone())}}</p>

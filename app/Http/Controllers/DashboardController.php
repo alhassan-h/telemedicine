@@ -41,6 +41,24 @@ class DashboardController extends Controller
 
     }
 
+        /**
+     * Show the profile.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function profile(Request $request)
+    {
+        $user = $request->user();
+
+        if ( $user->isDoctor() ) {
+            return redirect(route('doctor.profile'));
+        } elseif ( $user->isPatient() ) {
+            return redirect(route('patient.profile'));
+        }
+
+        abort('404');
+    }
+
     /**
      * Show doctors.
      *
@@ -146,19 +164,23 @@ class DashboardController extends Controller
     {
         $validatedData = $request->validate([
             'reciepient_id' => ['required', 'numeric'],
+            'last_message_id' => ['required', 'numeric'],
         ]);
 
         
         $user = $request->user();
         
         $reciepient_id = $validatedData['reciepient_id'];
+        $last_message_id = $validatedData['last_message_id'];
+    
         $reciepient = User::find($reciepient_id);
         if(!$reciepient){return response()->json('');}
         
-        $chats = $user->getConversationWith($reciepient);
-        return response()->json('');
+        $chats = $user->getLatestConversationWith($reciepient, $last_message_id);
         $conversation = '';
+        $id = 0;
         foreach($chats as $chat){
+            $id += $chat->id;
             $sender = $chat->isAuthor($user)?'me':'you';
             $conversation .= "<div class='bubble $sender'>"
                                 .'<div class="sender">'
@@ -172,9 +194,16 @@ class DashboardController extends Controller
                                 .'</div>'
                             .'</div>';
         }
-        // return response()->json('pass');
 
-        return response()->json($conversation);
+        $data = [
+            'msg' => $conversation,
+            'last_message_id' => $id,
+        ];
+
+        return response()->json($data);
+        
+
+        // return response()->json($conversation);
 
     }
 

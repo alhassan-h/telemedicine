@@ -19,22 +19,27 @@
                                 <input type="text" class="form-control" placeholder="Search">
                             </div>
                             <div class="people ps ps--active-y">
-
+                                @php($threads = [])
                                 @forelse($chats as $chat)
-                                    <a href="{{route('patient.chats').'/'.$chat->getSenderAliasID(Auth::user())}}" class="person" data-chat="person6" style="">
+                                    @php($reciepient =  $chat->isAuthor(Auth::user())?$chat->getReciepient():$chat->getSender())
+                                    @if(!in_array($chat->get_thread_id(), $threads))
+                                    <a href="{{route('patient.chats').'/'.$chat->getSenderAliasID(Auth::user())}}" class="person {{$chat->get_thread_id()}}" data-chat="person6" style="">
                                         <div class="user-info">
                                             <div class="f-head">
-                                                <img src="{{asset('assets/vendor2/assets/img/90x90.jpg')}}" alt="avatar">
+                                                @php($profile = $reciepient->getProfilePicture())
+                                                <img src='{{asset("storage/images/users/$profile")}}' alt="avatar">
                                             </div>
                                             <div class="f-body">
                                                 <div class="meta-info">
-                                                    <span class="user-name" data-name="Nia Hillyer">{{$chat->getSenderAlias(Auth::user())}}</span>
+                                                    <span class="user-name" data-name="">{{$chat->getSenderAlias(Auth::user())}}</span>
                                                     <span class="user-meta-time">{{$chat->getDate()}}</span>
                                                 </div>
                                                 <span class="preview">{{ucfirst($chat->getMessage())}}</span>
                                             </div>
                                         </div>
                                     </a>
+                                    @php($threads[] = $chat->get_thread_id())
+                                    @endif
                                 @empty
                                 <span class="p-4 text-primary"> You have no chats yet. Go to Doctors' list and chat them up</span>
                                 @endforelse

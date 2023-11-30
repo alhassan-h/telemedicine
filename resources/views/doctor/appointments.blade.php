@@ -38,25 +38,25 @@
                     </div>
                     <div class="widget-content">
                         <div class="table-responsive">
-                        <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Patient</th>
-                                            <th>Date & Time</th>
-                                            <th>summary</th>
-                                            <th>action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Patient</th>
+                                        <th>Date & Time</th>
+                                        <th>summary</th>
+                                        <th>action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     @foreach($appointments as $appointment)
                                         @if($appointment->action == 'approved')
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td class="d-flex align-items-center">
-                                                @php($profile = $appointment->patient->getProfilePicture())
+                                                @php($profile = $appointment->getPatient()->getProfilePicture())
                                                 <img class="profile-pic mr-3" src='{{asset("storage/images/users/$profile")}}'>
-                                                {{$appointment->patient->getFullname()}}
+                                                {{$appointment->getPatient()->getFullname()}}
                                             </td>
                                             <td>{{date('M d, Y H:m A',strtotime("$appointment->date $appointment->time"))}}</td>
                                             <td>{{ucfirst($appointment->summary)}}</td>
@@ -79,7 +79,7 @@
                                                                         <div class="text-center">
                                                                             <h3>Are You Sure?</h3>
                                                                             <h6>You want to cancel appointment with</h6>
-                                                                            <p class="mb-0 text-secondary">{{$appointment->patient->getFullname()}} ({{$appointment->patient->getEmail()}})</p>
+                                                                            <p class="mb-0 text-secondary">{{$appointment->getPatient()->getFullname()}} ({{$appointment->getPatient()->getEmail()}})</p>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -133,9 +133,9 @@
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td class="d-flex align-items-center">
-                                            @php($profile = $appointment->patient->getProfilePicture())
+                                            @php($profile = $appointment->getPatient()->getProfilePicture())
                                             <img class="profile-pic mr-3" src='{{asset("storage/images/users/$profile")}}'>
-                                            {{$appointment->patient->getFullname()}}
+                                            {{$appointment->getPatient()->getFullname()}}
                                         </td>
                                         <td>{{date('M d, Y H:m A',strtotime("$appointment->date $appointment->time"))}}</td>
                                         <td>{{ucfirst($appointment->summary)}}</td>
@@ -198,7 +198,7 @@
                                                                     <div class="text-center">
                                                                         <h3>Are You Sure?</h3>
                                                                         <h6>You want to reject request from</h6>
-                                                                        <p class="mb-0 text-secondary">{{$appointment->patient->getFullname()}} ({{$appointment->patient->getEmail()}})</p>
+                                                                        <p class="mb-0 text-secondary">{{$appointment->getPatient()->getFullname()}} ({{$appointment->getPatient()->getEmail()}})</p>
                                                                     </div>
                                                                 </form>
                                                             </div>

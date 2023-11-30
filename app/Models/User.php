@@ -10,10 +10,13 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -77,6 +80,29 @@ class User extends Authenticatable
     {
         return $this->hasMany(Patient::class, 'user_id', 'sender_id');
     }
+
+        /**
+     * .
+     *
+     */
+    public function getDoctor()
+    {
+        return Doctor::withTrashed()
+            ->where('user_id', $this->id)
+            ->get()
+            ->first();
+    }
+
+    /**
+     * .
+     *
+     */
+    public function getPatient()
+    {
+        return Patient::withTrashed()
+            ->where('user_id', $this->id)
+            ->get()
+            ->first();    }
 
     /**
      * Get usertype.
@@ -190,6 +216,25 @@ class User extends Authenticatable
             ])
         ->get();
     }
+   
+    /**
+     * .
+     *
+     */
+    public function getLatestConversationWith(User $user, $last_msg_offset)
+    {
+        return Chat::where([
+            ['sender_id', $this->id],
+            ['reciepient_id', $user->id],
+            ['id', '>', $last_msg_offset],
+            ])
+            ->OrWhere([
+                ['sender_id', $user->id],
+                ['reciepient_id', $this->id],
+                ['id', '>', $last_msg_offset],
+            ])
+        ->get();
+    }
 
     /*
      ****************************************************
@@ -204,7 +249,7 @@ class User extends Authenticatable
     public function getAppointments()
     {
         return ($this->isDoctor())?
-            $this->doctor->getAppointments():$this->patient->getAppointments();
+            $this->getDoctor()->getAppointments():$this->getPatient()->getAppointments();
     }
 
 }
