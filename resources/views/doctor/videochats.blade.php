@@ -44,7 +44,6 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Patient</th>
-                                                
                                                 <th>action</th>
                                             </tr>
                                         </thead>
@@ -58,7 +57,6 @@
                                                         <img class="profile-pic mr-3" src='{{asset("storage/images/users/$profile")}}'>
                                                         {{$appointment->getPatient()->getFullname()}}
                                                     </td>
-                                                    
                                                     <td class="">
                                                         <div class="">
                                                             @if($appointment->status == 'pending')
@@ -135,7 +133,7 @@
                                     <div class="modal-dialog w-100px" role="document">
                                         <div class="modal-content h-100">
                                             <div class="modal-header">
-                                                <h5 class="text-center modal-title" id="approveAppReqLabel">Virtual Consultation</h5>
+                                                <h5 class="text-center modal-title" id="approveAppReqLabel">Virtual Consultation with {{$appointment->getPatient()->getFullname()}}</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                                 </button>

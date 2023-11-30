@@ -22,7 +22,7 @@
                                                     <div class="upload mt-4 pr-md-4">
                                                         @php($profile = $doctor->getProfilePicture())
                                                         <input type="file" id="input-file-max-fs" class="dropify" data-default-file='{{asset("storage/images/users/$profile")}}' data-max-file-size="2M" name="profile" />
-                                                        <p class="mt-2 pl-3">Dr. {{$doctor->getFullname()}}</p>
+                                                        <p class="mt-2">Dr. {{$doctor->getFullname()}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
@@ -42,7 +42,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="lname">Last Name</label>
-                                                                    <input type="text" class="form-control mb-4" id="lname" placeholder="Last Name" value="{{$doctor->getFirstName()}}" name="last_name">
+                                                                    <input type="text" class="form-control mb-4" id="lname" placeholder="Last Name" value="{{$doctor->getLastName()}}" name="last_name">
                                                                     @error('last_name')
                                                                         <span class="d-flex invalid-feedback" role="alert">
                                                                             <strong>{{ $message }}</strong>

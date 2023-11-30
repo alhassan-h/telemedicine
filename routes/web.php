@@ -61,7 +61,7 @@ Route::post('/doctor/videochats/end', [App\Http\Controllers\DoctorController::cl
 // PATIENT ROUTES
 Route::get('/patient/dashboard', [App\Http\Controllers\PatientController::class, 'index'])->name('patient.dashboard');
 Route::get('/patient/profile', [App\Http\Controllers\PatientController::class, 'profile'])->name('patient.profile');
-Route::post('/patient/profile/update', [App\Http\Controllers\DashboardController::class, 'updateProfile'])->name('patient.profile.update');
+Route::post('/patient/profile/update', [App\Http\Controllers\PatientController::class, 'updateProfile'])->name('patient.profile.update');
 Route::get('/patient/doctors', [App\Http\Controllers\PatientController::class, 'doctors'])->name('patient.doctors');
 Route::get('/patient/doctors/{id}', [App\Http\Controllers\PatientController::class, 'doctor'])->name('patient.doctor');
 Route::get('/patient/appointments', [App\Http\Controllers\PatientController::class, 'appointments'])->name('patient.appointments');

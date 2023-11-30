@@ -103,7 +103,7 @@ class DoctorController extends Controller
         // if changing profile picture, save it.
         if(isset($request->profile)){
             $fileName = $doctor->getEmail() . '_' . time() . '.' . $validatedData['profile']->extension();
-            $validatedData['profile']->storeAs('storage/images/users', $fileName);
+            $validatedData['profile']->storeAs('public/images/users', $fileName);
             $validatedData['profile'] = $fileName;
         }
 

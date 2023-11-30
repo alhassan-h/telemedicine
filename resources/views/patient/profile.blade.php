@@ -11,7 +11,7 @@
                 <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
                     <div class="row mb-5">
                         <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-                            <form id="editProfileForm" action={{route('doctor.profile.update')}} class="section general-info" method="post" enctype="multipart/form-data">
+                            <form id="editProfileForm" action={{route('patient.profile.update')}} class="section general-info" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="info">
                                     <h6 class="">Profile Information</h6>
@@ -22,7 +22,7 @@
                                                     <div class="upload mt-4 pr-md-4">
                                                         @php($profile = $patient->getProfilePicture())
                                                         <input type="file" id="input-file-max-fs" class="dropify" data-default-file='{{asset("storage/images/users/$profile")}}' data-max-file-size="2M" name="profile" />
-                                                        <p class="mt-2 pl-3">Dr. {{$patient->getFullname()}}</p>
+                                                        <p class="mt-2">{{$patient->getFullname()}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
@@ -42,7 +42,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="lname">Last Name</label>
-                                                                    <input type="text" class="form-control mb-4" id="lname" placeholder="Last Name" value="{{$patient->getFirstName()}}" name="last_name">
+                                                                    <input type="text" class="form-control mb-4" id="lname" placeholder="Last Name" value="{{$patient->getLastName()}}" name="last_name">
                                                                     @error('last_name')
                                                                         <span class="d-flex invalid-feedback" role="alert">
                                                                             <strong>{{ $message }}</strong>

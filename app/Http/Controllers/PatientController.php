@@ -64,7 +64,7 @@ class PatientController extends Controller
     public function updateProfile(Request $request)
     {
         $user = $request->user();
-        $patient = $user->gePatient();
+        $patient = $user->getPatient();
         
         $validatedData =  $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
@@ -85,7 +85,7 @@ class PatientController extends Controller
         // if changing profile picture, save it.
         if(isset($request->profile)){
             $fileName = $patient->getEmail() . '_' . time() . '.' . $validatedData['profile']->extension();
-            $validatedData['profile']->storeAs('storage/images/users', $fileName);
+            $validatedData['profile']->storeAs('public/images/users', $fileName);
             $validatedData['profile'] = $fileName;
         }
 
