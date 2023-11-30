@@ -31,7 +31,7 @@
                                             </div>
                                             <div class="f-body">
                                                 <div class="meta-info">
-                                                    <span class="user-name" data-name="">{{$chat->getSenderAlias(Auth::user())}}</span>
+                                                    <span class="user-name" data-name="">Dr. {{$chat->getSenderAlias(Auth::user())}}</span>
                                                     <span class="user-meta-time">{{$chat->getDate()}}</span>
                                                 </div>
                                                 <span class="preview">{{ucfirst($chat->getMessage())}}</span>

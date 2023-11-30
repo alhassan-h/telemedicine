@@ -96,7 +96,7 @@
 
         setInterval(refresh_msg, 2000);
 
-        var last_message_id = "{{$chat->id}}";
+        var last_message_id = "{{$chat_id}}";
 
         // functions defination
         function send_msg() {

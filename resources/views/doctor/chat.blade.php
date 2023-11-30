@@ -47,7 +47,9 @@
                                             <span>November, 24</span>
                                         </div> --}}
                                                 
+                                        @php($chat_id = 0)
                                         @forelse($chats as $chat)
+                                            @php($chat_id = $chat->id)
                                         <div class="bubble {{$chat->isAuthor(Auth::user())?'me':'you'}}">
                                             <div class="sender">
                                                 <span>{{-- ucwords($chat->getSender()) --}}</span>

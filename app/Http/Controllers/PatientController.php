@@ -50,10 +50,50 @@ class PatientController extends Controller
         
         $data = [
             'page_name' => 'profile',
-            'appointments' => $patient->getApprovedAppointments(),
+            'patient' => $patient,
         ];
 
         return view('patient.profile', compact('data'));
+    }
+
+        /**
+     * Update profile.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+        $patient = $user->gePatient();
+        
+        $validatedData =  $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'in:male,female'],
+            'phone' => ['required', 'string', 'size:11', Rule::unique('users')->ignore($user)],
+            'profile' => ['sometimes', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
+        ]);
+        
+        // if new password is provided, hash it.
+        if( isset($validatedData['password']) ){
+            $validatedData['password'] = Hash::make($request->validate(
+                ['password' => ['sometimes','string', 'min:8']])['password']
+            );
+        }
+        // dd($validatedData);
+
+        // if changing profile picture, save it.
+        if(isset($request->profile)){
+            $fileName = $patient->getEmail() . '_' . time() . '.' . $validatedData['profile']->extension();
+            $validatedData['profile']->storeAs('storage/images/users', $fileName);
+            $validatedData['profile'] = $fileName;
+        }
+
+
+        $user->update($validatedData);
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
+
     }
 
     /**
