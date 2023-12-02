@@ -31,7 +31,7 @@
                             <div class="media-body">
                                 <div class="course">
                                     <!-- <h3>Video Conference</h3> -->
-                                    <p class="meta-date">Choose a Patient to start call</p>
+                                    <p class="meta-date">When a doctor has started a call for your session. You can join it here.</p>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                                 <form action="" method="post">
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
-                                            @if($appointment)
+                                            @if($appointment && $appointment->status == 'done')
                                             <p class="m-0 p-0 text-success">You have an ongoing call with Dr. {{$appointment->getDoctor()->getFullname()}}</p>
                                             @else
                                             <p class="m-0 p-0 text-danger">You have no ongoing call!</p>
@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="form-row mb-4">
-                                        @if($appointment)
+                                        @if($appointment && $appointment->status == 'done')
                                         <button type="button" class="btn btn-primary mb-2 ml-2" data-toggle="modal" data-target="#approveAppReq">Join Call Now</button>
                                         <div class="modal fade" id="approveAppReq" tabindex="-1" role="dialog" aria-labelledby="approveAppReqLabel" aria-hidden="true">
                                             <div class="modal-dialog w-100px" role="document">

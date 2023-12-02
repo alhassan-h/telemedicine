@@ -11,7 +11,7 @@
                             <div class="form-content">
 
                                 <div class="form-content-heading d-flex mb-4">
-                                    <img src="{{asset('storage/images/gsulogo-mini2.png')}}" class="auth-logo">
+                                    <img src="{{asset('storage/images/ashmed-logo.png')}}" class="auth-logo">
                                     <div class="text-center full-width">
                                         <h1 class="">Create An Account</h1>
                                         <!-- <p class="">Log in to your account to continue.</p> -->

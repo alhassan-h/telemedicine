@@ -131,7 +131,7 @@ class RegisterController extends Controller
         )->safe()->except(['_token']);
                 
         $fileName = $validatedData['email'] . '_' . time() . '.' . $validatedData['profile']->extension();
-        $validatedData['profile']->storeAs('storage/images/users', $fileName);
+        $validatedData['profile']->storeAs('public/images/users', $fileName);
         $validatedData['profile'] = $fileName;
 
         $validatedData['usertype'] = 'patient';

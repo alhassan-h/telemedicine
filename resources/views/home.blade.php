@@ -14,12 +14,12 @@
                     <div class="col-12">
                         <div class="d-flex flex-column justify-content-center align-items-center mb-5">
                             <h1 class="display-3 mb-4 ps-1" style="font-family: comic sans MS; color: white">Welcome To</h1>
-                            <h1 class="fs-5rem" style="font-weight: 900; font-family: georgia; color: white">Ashmed Telemedicine Portal</h1>
+                            <h1 class="fs-3_5rem" style="font-weight: 900; font-family: georgia; color: white">Ashmed Telemedicine Portal</h1>
                         </div>
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <div class=" mb-5">
                                 <p class="badge badge-danger" style="font-style: italic; font-size: 1rem; font-weight: 900; font-family: comic sans MS; color: white">
-                                An interactive interface for seamless Doctor-Patient Virtual Medical Consultation and Theraphy Session</p>
+                                An Interactive Interface for Seamless Doctor-Patient Virtual Medical Consultation and Theraphy Session</p>
                             </div>
                             <div class="">
                                 <a href="/login" class="btn btn-primary btn-lg w-30">Start Session Now</a>

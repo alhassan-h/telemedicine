@@ -122,7 +122,7 @@ class Chat extends Model
      */
     public function getDate()
     {
-        $date = date('g:m A', strtotime($this->created_at));
+        $date = date('g:i A', strtotime($this->created_at));
         return $date;
         // return $this->created_at->humanDiff();
     }
